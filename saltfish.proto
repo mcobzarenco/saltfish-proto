@@ -1,6 +1,6 @@
 package reinferio.saltfish;
 
-import "reinferio/core.proto";
+import "core.proto";
 
 
 /*****************     SourceManagerService::create_source    *****************/
