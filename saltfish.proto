@@ -16,7 +16,9 @@ message CreateSourceResponse {
     DUPLICATE_FEATURE_NAME = 2;
     SOURCE_ID_ALREADY_EXISTS = 3;
     INVALID_SOURCE_ID = 4;
-    NETWORK_ERROR = 5;
+    INVALID_USER_ID = 5;
+    INVALID_FEATURE_TYPE = 6;
+    NETWORK_ERROR = 7;
   }
   optional Status status = 1;
   optional string msg = 2;
