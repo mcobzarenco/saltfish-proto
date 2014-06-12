@@ -69,11 +69,11 @@ message GenerateIdResponse {
 
 /*****************      SourceManagerService::list_sources     *****************/
 
-message ListSourcesRequest {
+message GetSourcesRequest {
   optional int32 user_id = 1;
 }
 
-message ListSourcesResponse {
+message GetSourcesResponse {
   enum Status {
     UNKNOWN_ERROR = 0;
     OK = 1;
@@ -128,6 +128,6 @@ service SourceManagerService  {
   rpc create_source(CreateSourceRequest) returns (CreateSourceResponse);
   rpc delete_source(DeleteSourceRequest) returns (DeleteSourceResponse);
   rpc generate_id(GenerateIdRequest) returns (GenerateIdResponse);
-  rpc list_sources(ListSourcesRequest) returns (ListSourcesResponse);
+  rpc get_sources(GetSourcesRequest) returns (GetSourcesResponse);
   rpc put_records(PutRecordsRequest) returns (PutRecordsResponse);
 }
