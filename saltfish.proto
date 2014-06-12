@@ -131,28 +131,3 @@ service SourceManagerService  {
   rpc list_sources(ListSourcesRequest) returns (ListSourcesResponse);
   rpc put_records(PutRecordsRequest) returns (PutRecordsResponse);
 }
-
-/*****************     SourceSamplerService::sample_source    *****************/
-
-message SampleSourceRequest {
-  optional bytes source_id = 1;
-  optional uint32 max_count = 2;
-}
-
-message SampleSourceResponse {
-  enum Status {
-    UNKNOWN_ERROR = 0;
-    OK = 1;
-    NETWORK_ERROR = 2;
-  }
-  optional Status status = 1;
-  optional string msg = 2;
-
-  repeated reinferio.core.Record records = 3;
-}
-
-/*****************            SourceSamplerService            *****************/
-
-service SourceSamplerService  {
-  rpc sample_source(SampleSourceRequest) returns (SampleSourceResponse);
-}
