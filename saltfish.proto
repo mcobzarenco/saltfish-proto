@@ -14,11 +14,12 @@ message CreateSourceResponse {
     UNKNOWN_ERROR = 0;
     OK = 1;
     DUPLICATE_FEATURE_NAME = 2;
-    SOURCE_ID_ALREADY_EXISTS = 3;
-    INVALID_SOURCE_ID = 4;
-    INVALID_USER_ID = 5;
-    INVALID_FEATURE_TYPE = 6;
-    NETWORK_ERROR = 7;
+    DUPLICATE_SOURCE_NAME = 3;
+    SOURCE_ID_ALREADY_EXISTS = 4;
+    INVALID_SOURCE_ID = 5;
+    INVALID_USER_ID = 6;
+    INVALID_FEATURE_TYPE = 7;
+    NETWORK_ERROR = 8;
   }
   optional Status status = 1;
   optional string msg = 2;
@@ -67,23 +68,38 @@ message GenerateIdResponse {
   repeated bytes ids = 3;
 }
 
-/*****************      SourceManagerService::list_sources     *****************/
+/*****************      SourceManagerService::get_sources     *****************/
+
+message SourceInfo {
+  optional reinferio.core.Source source = 1;
+  optional string username = 2;
+  optional string email = 3;
+
+  optional string stats = 4;
+}
 
 message GetSourcesRequest {
-  optional int32 user_id = 1;
+  optional bytes source_id = 1;
+  optional int32 user_id = 2;
+  optional string username = 3;
+
+  optional bool with_stats = 4  [default = false];
 }
 
 message GetSourcesResponse {
   enum Status {
     UNKNOWN_ERROR = 0;
     OK = 1;
-    INVALID_USER_ID = 2;
-    NETWORK_ERROR = 3;
+    INVALID_SOURCE_ID = 2;
+    INVALID_USER_ID = 3;
+    INVALID_USERNAME = 4;
+    INVALID_REQUEST = 5;
+    NETWORK_ERROR = 6;
   }
   optional Status status = 1;
   optional string msg = 2;
 
-  repeated reinferio.core.Source sources = 3;
+  repeated SourceInfo sources_info = 3;
 }
 
 /*****************      SourceManagerService::put_records     *****************/
