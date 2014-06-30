@@ -74,16 +74,12 @@ message SourceInfo {
   optional reinferio.core.Source source = 1;
   optional string username = 2;
   optional string email = 3;
-
-  optional string stats = 4;
 }
 
 message GetSourcesRequest {
   optional bytes source_id = 1;
   optional int32 user_id = 2;
   optional string username = 3;
-
-  optional bool with_stats = 4  [default = false];
 }
 
 message GetSourcesResponse {
