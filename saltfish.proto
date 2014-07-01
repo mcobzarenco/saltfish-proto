@@ -30,7 +30,7 @@ message CreateSourceResponse {
 /*****************     SourceManagerService::delete_source    *****************/
 
 message DeleteSourceRequest {
-  required bytes source_id = 1;
+  optional bytes source_id = 1;
 }
 
 message DeleteSourceResponse {
@@ -105,7 +105,7 @@ message PutRecordsRequest {
     optional bytes record_id = 1;
     optional reinferio.core.Record record = 2;
   }
-  required bytes source_id = 1;
+  optional bytes source_id = 1;
   repeated TaggedRecord records = 2;
 }
 
