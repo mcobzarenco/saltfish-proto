@@ -22,13 +22,14 @@ SetupProtoCompiler.files = [('saltfish.proto', True)]
 SetupProtoCompiler.include_dirs = ['/usr/share/proto']
 
 setup(name='reinferio.' + PKG_NAME,
-      version='0.1.2',
+      version='0.1.3',
       description='reinfer.io core protos',
       author='reinfer.io Ltd.',
       author_email='marius@reinfer.io',
       url='https://github.com/reinferio/saltfish-proto.git',
       test_suite='test',
       install_requires=[
+          'protobuf>=2.5.0',
           'reinferio.proto>=0.1.0',
           'reinferio.core_pb2>=0.1.0',
           'rpcz>=0.9',
