@@ -3,20 +3,20 @@ package reinferio.saltfish;
 import "reinferio/core.proto";
 
 
-/*****************     SourceManagerService::create_source    *****************/
+/*****************        DatasetStore::create_dataset        *****************/
 
-message CreateSourceRequest {
-  optional reinferio.core.Source source = 1;
+message CreateDatasetRequest {
+  optional reinferio.core.Dataset dataset = 1;
 }
 
-message CreateSourceResponse {
+message CreateDatasetResponse {
   enum Status {
     UNKNOWN_ERROR = 0;
     OK = 1;
     DUPLICATE_FEATURE_NAME = 2;
-    DUPLICATE_SOURCE_NAME = 3;
-    SOURCE_ID_ALREADY_EXISTS = 4;
-    INVALID_SOURCE_ID = 5;
+    DUPLICATE_DATASET_NAME = 3;
+    DATASET_ID_ALREADY_EXISTS = 4;
+    INVALID_DATASET_ID = 5;
     INVALID_USER_ID = 6;
     INVALID_FEATURE_TYPE = 7;
     NETWORK_ERROR = 8;
@@ -24,20 +24,20 @@ message CreateSourceResponse {
   optional Status status = 1;
   optional string msg = 2;
 
-  optional bytes source_id = 3;
+  optional bytes dataset_id = 3;
 }
 
-/*****************     SourceManagerService::delete_source    *****************/
+/*****************        DatasetStore::delete_dataset        *****************/
 
-message DeleteSourceRequest {
-  optional bytes source_id = 1;
+message DeleteDatasetRequest {
+  optional bytes dataset_id = 1;
 }
 
-message DeleteSourceResponse {
+message DeleteDatasetResponse {
   enum Status {
     UNKNOWN_ERROR = 0;
     OK = 1;
-    INVALID_SOURCE_ID = 2;
+    INVALID_DATASET_ID = 2;
     NETWORK_ERROR = 3;
   }
   optional Status status = 1;
@@ -45,12 +45,12 @@ message DeleteSourceResponse {
   optional bool updated = 3;
 }
 
-/*****************      SourceManagerService::generate_id     *****************/
+/*****************      DatasetStore::generate_id     *****************/
 
 message GenerateIdRequest {
   enum IdType {
     INVALID = 0;
-    SOURCE = 1;
+    DATASET = 1;
     ROW = 2;
   }
   optional IdType id_type = 1;
@@ -68,25 +68,25 @@ message GenerateIdResponse {
   repeated bytes ids = 3;
 }
 
-/*****************      SourceManagerService::get_sources     *****************/
+/*****************         DatasetStore::get_datasets         *****************/
 
-message SourceInfo {
-  optional reinferio.core.Source source = 1;
+message DatasetDetail {
+  optional reinferio.core.Dataset dataset = 1;
   optional string username = 2;
   optional string email = 3;
 }
 
-message GetSourcesRequest {
-  optional bytes source_id = 1;
+message GetDatasetsRequest {
+  optional bytes dataset_id = 1;
   optional int32 user_id = 2;
   optional string username = 3;
 }
 
-message GetSourcesResponse {
+message GetDatasetsResponse {
   enum Status {
     UNKNOWN_ERROR = 0;
     OK = 1;
-    INVALID_SOURCE_ID = 2;
+    INVALID_DATASET_ID = 2;
     INVALID_USER_ID = 3;
     INVALID_USERNAME = 4;
     INVALID_REQUEST = 5;
@@ -95,17 +95,17 @@ message GetSourcesResponse {
   optional Status status = 1;
   optional string msg = 2;
 
-  repeated SourceInfo sources_info = 3;
+  repeated DatasetDetail datasets = 3;
 }
 
-/*****************      SourceManagerService::put_records     *****************/
+/*****************          DatasetStore::put_records         *****************/
 
 message PutRecordsRequest {
   message TaggedRecord {
     optional bytes record_id = 1;
     optional reinferio.core.Record record = 2;
   }
-  optional bytes source_id = 1;
+  optional bytes dataset_id = 1;
   repeated TaggedRecord records = 2;
 }
 
@@ -114,7 +114,7 @@ message PutRecordsResponse {
     UNKNOWN_ERROR = 0;
     OK = 1;
     INVALID_SCHEMA = 2;
-    INVALID_SOURCE_ID = 3;
+    INVALID_DATASET_ID = 3;
     NO_RECORDS_IN_REQUEST = 4;
     INVALID_RECORD = 5;
     NETWORK_ERROR = 6;
@@ -125,21 +125,21 @@ message PutRecordsResponse {
   repeated bytes record_ids = 3;
 }
 
-/*****************            SourceManagerService            *****************/
+/*****************                DatasetStore                *****************/
 
 enum RequestType {
     UNKNOWN_REQUEST = 0;
     ALL = 1;
-    CREATE_SOURCE = 2;
-    DELETE_SOURCE = 3;
+    CREATE_DATASET = 2;
+    DELETE_DATASET = 3;
     GENERATE_ID = 4;
     PUT_RECORDS = 5;
 }
 
-service SourceManagerService  {
-  rpc create_source(CreateSourceRequest) returns (CreateSourceResponse);
-  rpc delete_source(DeleteSourceRequest) returns (DeleteSourceResponse);
+service DatasetStore  {
+  rpc create_dataset(CreateDatasetRequest) returns (CreateDatasetResponse);
+  rpc delete_dataset(DeleteDatasetRequest) returns (DeleteDatasetResponse);
   rpc generate_id(GenerateIdRequest) returns (GenerateIdResponse);
-  rpc get_sources(GetSourcesRequest) returns (GetSourcesResponse);
+  rpc get_datasets(GetDatasetsRequest) returns (GetDatasetsResponse);
   rpc put_records(PutRecordsRequest) returns (PutRecordsResponse);
 }
