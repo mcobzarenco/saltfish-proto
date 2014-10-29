@@ -102,11 +102,12 @@ message GetDatasetsResponse {
 
 message PutRecordsRequest {
   message TaggedRecord {
-    optional bytes record_id = 1;
+    optional bytes                 record_id = 1;
     optional reinferio.core.Record record = 2;
   }
-  optional bytes dataset_id = 1;
+  optional bytes        dataset_id = 1;
   repeated TaggedRecord records = 2;
+  optional bytes        source = 3;
 }
 
 message PutRecordsResponse {
